@@ -4,15 +4,63 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>Caculator</title>
     <link rel="stylesheet" href="stylesheet.css" >
 </head>
 <body>
-    <main>
-        <div class="box">
-            <input class="input" type="text" placeholder="Text input">
-          </div>
-    </main>
+        <main class="light-background disable-select">
+            <header>
+                <div class="ui toggle checkbox">
+                    <input type="checkbox" name="public">
+                    <label>Light Mode</label>
+                </div>
+                <div class="ui compact menu">
+                    <a class="item">
+                        <i class="icon calculator"></i> Annas Calculator
+                    </a>
+                </div>
+            </header>
+            <div class="ui transparent icon input">
+                <p id="output"></p>
+                <i><i class="eraser large link icon" onclick="erase()"></i> Result</i>
+            </div>
+            <div class="col3">
+                <span><div class="ui button secondary-light" tabindex="0">AC</div></span>
+                <span><div class="ui button secondary-light" tabindex="0">%</div></span>
+                <span><div class="ui button primary-light" tabindex="0">&divide;</div></span>
+            </div>
+            <div class="col4">
+                <span><button class="ui button secondary-light">7</button></span>
+                <span><button class="ui button secondary-light">8</button></span>
+                <span><button class="ui button secondary-light">9</button></span>
+                <span><div class="ui button primary-light" tabindex="0">x</div></span>
+            </div>
+            <div class="col4">
+                <span><button class="ui button secondary-light">4</button></span>
+                <span><button class="ui button secondary-light">5</button></span>
+                <span><button class="ui button secondary-light">6</button></span>
+                <span><div class="ui button primary-light" tabindex="0">-</div></span>
+            </div>
+            <div class="col4">
+                <span><button class="ui button secondary-light">1</button></span>
+                <span><button class="ui button secondary-light">2</button></span>
+                <span><button class="ui button secondary-light">3</button></span>
+                <span><div class="ui button primary-light" tabindex="0">+</div></span>
+            </div>
+            <div class="col3">
+                <span><button class="ui button secondary-light">0</button></span>
+                <span><div class="ui button secondary-light" tabindex="0">.</div></span>
+                <span>
+                    <div class="ui animated fade button primary-light" tabindex="0">
+                        <div class="visible content">=</div>
+                        <div class="hidden content">Result</div>
+                    </div>
+                </span>
+            </div>
+        </main>
+        <script src="script.js"></script>
 </body>
 </html>
