@@ -1,6 +1,10 @@
 let currentValue = $("#output").html();
 let indexOperator = [];
-let result = 0;
+let result = true;
+
+let bilangan1 = false;
+let bilangan2 = false;
+let operator = false;
 
 $("span").click(function(e) {
     let identifier = e.target.innerHTML
@@ -21,14 +25,30 @@ $("span").click(function(e) {
         if(identifier.startsWith("<") === false){
 
             if(identifier === "=" || identifier === "%" || identifier === "/" || identifier === "x" || identifier === "-" || identifier === "+" ){
-                indexOperator.push(identifier);
+                if(operator === false){
+                    operator = identifier;
+                    console.log(operator)
+                }else{
+                    count();
+                }
+            }else{
+                if(operator === false){
+                    if(bilangan1 === false){
+                        bilangan1 = "";
+                    }
+                    bilangan1 += identifier
+                    console.log(bilangan1)
+                }else{
+                    if(bilangan2 === false){
+                        bilangan2 = "";
+                    }
+                    bilangan2 += identifier
+                    console.log(bilangan2)
+                }
             }
 
             if(currentValue.endsWith('%') === true || currentValue.endsWith('=') === true || currentValue.endsWith('/') === true || currentValue.endsWith('x') === true || currentValue.endsWith('-') === true || currentValue.endsWith('+') === true ){
                 if(identifier === "=" || identifier === "%" || identifier === "/" || identifier === "x" || identifier === "-" || identifier === "." ||  identifier === "+" ){
-                    indexOperator.pop();
-                    indexOperator.pop();
-                    indexOperator.push(identifier);
                     erase();
                     currentValue = currentValue + identifier
                     $("#output").html(currentValue);
@@ -85,109 +105,34 @@ $("span").click(function(e) {
     function erase(){
         $("#output").html(currentValue.slice(0, currentValue.length-1));
         currentValue = $("#output").html();
-        changeValue();
     }
     
     function changeValue(){
       let value = $("#output").html();
       currentValue = value;
-      count();
     }
     
     function count(){
+        console.log('masuk')
+        if(bilangan1.indexOf('.') > -1 || bilangan2.indexOf('.') > -1){
 
-        result = 0;
-        let first = true;
-
-        indexOperator.map((data , index)=>{
-            let bilangan = currentValue.split(data)
-
-            let checkDecimal = currentValue.split('.');
-
-            if(checkDecimal.length > 1){
-                console.log('masuk')
-                if(data === '+'){
-                    if(first === true){
-                        first = false;
-                            result = parseFloat(bilangan[0]) + parseFloat(bilangan[1]);
-                    }else{
-                            result += parseFloat(bilangan[bilangan.length-1]);
-                    }
-                }else if(data === '-'){
-                    if(first === true){
-                        first = false;
-                            result = parseFloat(bilangan[0]) - parseFloat(bilangan[1]);
-                    }else{
-                            result -= parseFloat(bilangan[bilangan.length-1]);
-                    }
-                }else if(data === 'x'){
-                    if(first === true){
-                        first = false;
-                            result = parseFloat(bilangan[0]) * parseFloat(bilangan[1]);
-                    }else{
-                            result *= parseFloat(bilangan[bilangan.length-1]);
-                    }
-                }else if(data === '/'){
-                    if(first === true){
-                        first = false;
-                            result = parseFloat(bilangan[0]) / parseFloat(bilangan[1]);
-                    }else{
-                            result /= parseFloat(bilangan[bilangan.length-1]);
-                    }
-                }else if(data === '%'){
-                    if(first === true){
-                        first = false;
-                            result = parseFloat(bilangan[0]) % parseFloat(bilangan[1]);
-                    }else{
-                            result %= parseFloat(bilangan[bilangan.length-1]);
-                    }
-                }
-            }else{
-        
-                        if(data === '+'){
-                                if(first === true){
-                                    first = false;
-                                        result = parseInt(bilangan[0]) + parseInt(bilangan[1]);
-                                }else{
-                                        result += parseInt(bilangan[bilangan.length-1]);
-                                }
-                            }else if(data === '-'){
-                                if(first === true){
-                                    first = false;
-                                        result = parseInt(bilangan[0]) - parseInt(bilangan[1]);
-                                }else{
-                                        result -= parseInt(bilangan[bilangan.length-1]);
-                                }
-                            }else if(data === 'x'){
-                                if(first === true){
-                                    first = false;
-                                        result = parseInt(bilangan[0]) * parseInt(bilangan[1]);
-                                }else{
-                                        result *= parseInt(bilangan[bilangan.length-1]);
-                                }
-                            }else if(data === '/'){
-                                if(first === true){
-                                    first = false;
-                                        result = parseInt(bilangan[0]) / parseInt(bilangan[1]);
-                                }else{
-                                        result /= parseInt(bilangan[bilangan.length-1]);
-                                }
-                            }else if(data === '%'){
-                                if(first === true){
-                                    first = false;
-                                        result = parseInt(bilangan[0]) % parseInt(bilangan[1]);
-                                }else{
-                                        result %= parseInt(bilangan[bilangan.length-1]);
-                                }
-                            }
-
+        }else{
+            if(operator === '+'){
+                result = parseInt(bilangan1) + parseInt(bilangan2);
+                bilangan2 = false;
+                operator = currentValue.slice(currentValue.length-1 , currentValue.length)
+                console.log(currentValue)
             }
-        })
-        showResult()
+
+        }
+
+
+        showResult();
 
     }
 
     function showResult(){
-        console.log(result)
-        $("#result").html(result);
+        if(result !== true){
+            $("#result").html(result);
+        }
     }
