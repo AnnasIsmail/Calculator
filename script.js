@@ -1,10 +1,9 @@
 let currentValue = $("#output").html();
-let indexOperator = [];
-let result = true;
-
+let result = false;
 let bilangan1 = false;
 let bilangan2 = false;
 let operator = false;
+let samaDengan = false;
 
 $("span").click(function(e) {
     let identifier = e.target.innerHTML
@@ -15,6 +14,12 @@ $("span").click(function(e) {
     
     if(identifier === "Result"){
         identifier = '=';
+
+        count();
+        bilangan1 = false;
+        bilangan2 = false;
+        operator = false;
+        samaDengan = true;
     }
 
     if(identifier == "AC"){
@@ -22,14 +27,23 @@ $("span").click(function(e) {
         currentValue = "";
 
     }else{
-        if(identifier.startsWith("<") === false){
+        if( identifier === "%" || identifier === "/" || identifier === "x" || identifier === "-" || identifier === "+"|| identifier === "1"|| identifier === "2"|| identifier === "3"|| identifier === "4"|| identifier === "5"|| identifier === "6"|| identifier === "7"|| identifier === "8"|| identifier === "9"|| identifier === "0"|| identifier === "." ){
+
+            if(samaDengan === true){
+                samaDengan = false;
+                result = false;
+                currentValue = "";
+            }
 
             if(identifier === "=" || identifier === "%" || identifier === "/" || identifier === "x" || identifier === "-" || identifier === "+" ){
                 if(operator === false){
                     operator = identifier;
-                    console.log(operator)
+                }else if(bilangan2 === false){
+                    operator = identifier;
+
                 }else{
                     count();
+                    operator = identifier
                 }
             }else{
                 if(operator === false){
@@ -37,13 +51,11 @@ $("span").click(function(e) {
                         bilangan1 = "";
                     }
                     bilangan1 += identifier
-                    console.log(bilangan1)
                 }else{
                     if(bilangan2 === false){
                         bilangan2 = "";
                     }
                     bilangan2 += identifier
-                    console.log(bilangan2)
                 }
             }
 
@@ -72,17 +84,47 @@ $("span").click(function(e) {
   $(document).keypress(function(e) {
       let inputKeyboard = e.key;
       if(isNaN(inputKeyboard) === false || inputKeyboard === "=" || inputKeyboard === "%" || inputKeyboard === "/" || inputKeyboard === "x" || inputKeyboard === "-" || inputKeyboard === "+" ){
+          
+          if(samaDengan === true){
+              samaDengan = false;
+              result = false;
+              currentValue = "";
+              bilangan1 = false;
+            }
 
-        if(inputKeyboard === "=" || inputKeyboard === "%" || inputKeyboard === "/" || inputKeyboard === "x" || inputKeyboard === "-" ||  inputKeyboard === "+" ){
-            indexOperator.push(inputKeyboard);
+            if(inputKeyboard === "="){
+                count();
+                bilangan1 = false;
+                bilangan2 = false;
+                operator = false;
+                samaDengan = true;
+            }
 
+        if( inputKeyboard === "%" || inputKeyboard === "/" || inputKeyboard === "x" || inputKeyboard === "-" ||  inputKeyboard === "+" ){
+            if(operator === false){
+                operator = inputKeyboard;
+            }else if(bilangan2 === false){
+
+            }else{
+                count();
+                operator = inputKeyboard
+            }
+        }else{
+            if(operator === false){
+                if(bilangan1 === false){
+                    bilangan1 = "";
+                }
+                bilangan1 += inputKeyboard
+            }else{
+                if(bilangan2 === false){
+                    bilangan2 = "";
+                }
+                bilangan2 += inputKeyboard
+            }
         }
 
           if(currentValue.endsWith('%') === true || currentValue.endsWith('=') === true || currentValue.endsWith('/') === true || currentValue.endsWith('x') === true || currentValue.endsWith('-') === true || currentValue.endsWith('.') === true || currentValue.endsWith('+') === true){
             if(inputKeyboard === "=" || inputKeyboard === "%" || inputKeyboard === "/" || inputKeyboard === "x" || inputKeyboard === "-" || inputKeyboard === "." ||  inputKeyboard === "+" ){
-                indexOperator.pop();
-                indexOperator.pop();
-                indexOperator.push(inputKeyboard);
                 erase();
                 currentValue = currentValue + inputKeyboard
                 $("#output").html(currentValue);
@@ -113,26 +155,59 @@ $("span").click(function(e) {
     }
     
     function count(){
-        console.log('masuk')
-        if(bilangan1.indexOf('.') > -1 || bilangan2.indexOf('.') > -1){
+        if(bilangan1.toString().split('.').length > 1 || bilangan2.toString().search('.').length > 1){
+
+            if(operator === '+'){
+                result = parseFloat(bilangan1) + parseFloat(bilangan2);
+                bilangan1 = result;
+                bilangan2 = false;
+            }else if(operator === '-'){
+                result = parseFloat(bilangan1) - parseFloat(bilangan2);
+                bilangan1 = result;
+                bilangan2 = false;
+            }else if(operator === '/'){
+                result = parseFloat(bilangan1) / parseFloat(bilangan2);
+                bilangan1 = result;
+                bilangan2 = false;
+            }else if(operator === '%'){
+                result = parseFloat(bilangan1) % parseFloat(bilangan2);
+                bilangan1 = result;
+                bilangan2 = false;
+            }else if(operator === 'x'){
+                result = parseFloat(bilangan1) * parseFloat(bilangan2);
+                bilangan1 = result;
+                bilangan2 = false;
+            }
 
         }else{
             if(operator === '+'){
                 result = parseInt(bilangan1) + parseInt(bilangan2);
+                bilangan1 = result;
                 bilangan2 = false;
-                operator = currentValue.slice(currentValue.length-1 , currentValue.length)
-                console.log(currentValue)
+            }else if(operator === '-'){
+                result = parseInt(bilangan1) - parseInt(bilangan2);
+                bilangan1 = result;
+                bilangan2 = false;
+            }else if(operator === '/'){
+                result = parseInt(bilangan1) / parseInt(bilangan2);
+                bilangan1 = result;
+                bilangan2 = false;
+            }else if(operator === '%'){
+                result = parseInt(bilangan1) % parseInt(bilangan2);
+                bilangan1 = result;
+                bilangan2 = false;
+            }else if(operator === 'x'){
+                result = parseInt(bilangan1) * parseInt(bilangan2);
+                bilangan1 = result;
+                bilangan2 = false;
             }
 
         }
-
-
         showResult();
-
     }
 
     function showResult(){
-        if(result !== true){
+        if(result !== false){
             $("#result").html(result);
         }
     }
