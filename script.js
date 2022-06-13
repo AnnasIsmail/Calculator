@@ -155,7 +155,7 @@ $("span").click(function(e) {
     }
     
     function count(){
-        if(bilangan1.toString().split('.').length > 1 || bilangan2.toString().search('.').length > 1){
+        if(bilangan1.toString().split('.').length > 1 || bilangan2.toString().split('.').length > 1){
 
             if(operator === '+'){
                 result = parseFloat(bilangan1) + parseFloat(bilangan2);
@@ -210,4 +210,8 @@ $("span").click(function(e) {
         if(result !== false){
             $("#result").html(result);
         }
+    }
+
+    function changeTheme(){
+        
     }

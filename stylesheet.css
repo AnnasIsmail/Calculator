@@ -6,9 +6,27 @@
    -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
+.jarak{
+    height: 50px;
+}
+
+.ui.menu{
+    border-color: black !important;
+
+}
+
+.ui.compact.menu .item:last-child{
+    background-color: #303030;
+    border-color: black !important;
+    color: white !important;
+}
+
+.ui.toggle.checkbox label{
+    font-weight: 600 !important;
+}
+
 main{
     margin: auto;
-    margin-top: 50px;
 
     display: grid;
     max-width: 430px;
@@ -39,6 +57,7 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-height: 70px !important;
 }
 
 #output:focus-visible{
@@ -70,17 +89,53 @@ header{
 }
 
 /* Light Mode */
-/* .light-background{
-    background-color: #292929;
+.background-light{
+    background: rgba(255, 255, 255, 0.43);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(11.3px);
+    -webkit-backdrop-filter: blur(11.3px);
+    border: 1px solid rgba(255, 255, 255, 1);
 }
 
 .primary-light{
-    background-color: #6200EE !important;
+    background: rgba(97, 113, 194, 0.9) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1) !important;
+    backdrop-filter: blur(8.5px) !important;
+    -webkit-backdrop-filter: blur(8.5px) !important;
+    border: 1px solid rgba(255, 255, 255, 1) !important;
 }
 
 .secondary-light{
-    background-color: white !important;
-} */
+    background: rgba(255, 255, 255, 0.4) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1) !important;
+    backdrop-filter: blur(8.5px) !important;
+    -webkit-backdrop-filter: blur(8.5px) !important;
+    border: 1px solid rgba(255, 255, 255, 1) !important;
+    
+}
 
 /* Dark Mode */
+.background-dark{
+    background: rgba(66, 66, 66, 0.57) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+    backdrop-filter: blur(8.5px) !important;
+    -webkit-backdrop-filter: blur(8.5px) !important;
+    border: 1px solid rgba(66, 66, 66, 0.58) !important;
+    color: white !important;
+}
 
+.primary-dark{
+    background-color: #303030 !important;
+    border-radius: 10px !important;
+    color: white !important;
+}
+
+.secondary-dark{
+    background-color: #424242 !important;
+    border-radius: 10px !important;
+    color: white !important;
+}
